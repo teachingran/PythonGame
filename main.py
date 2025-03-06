@@ -1,10 +1,14 @@
-import Game
+import numpy as np
+from Game import Game
 #import Tournement
 
 
 def play_game():
-    game=Game.Game()
+    game= Game()
     game.play()
+    aaa = game.get_game_result()
+    print(aaa)
+    np.save()
 
 
 

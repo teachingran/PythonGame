@@ -11,16 +11,14 @@ class Game:
     def play(self):
         agent_turn = True
         while True:
-            self.print_board()
+#            self.print_board()
             if agent_turn:
                 self.perform_agent_random_move()
             else:
                 self.perform_rival_random_move()
             self.game_status = self.check_win()
-            print('self.game_status', self.game_status)
-            self.print_game_result()
+#            self.print_game_result()
             if self.game_status == GameStatus.KEEP_PLAYING:
-                print("self.game_status == GameStatus.KEEP_PLAYING")
                 agent_turn = not agent_turn
             else:
                 break
@@ -40,9 +38,7 @@ class Game:
     def perform_rival_random_move(self):
         self.__random_single_move(Player.RIVAL)
 
-# 2 - tie, 1 agent won, -1 rival won, 0 continue...
     def check_win(self):
-        print("not self.not_used: ", not self.not_used)
         if not self.not_used:
             return GameStatus.TIE
         if self.board[0, 0] == self.board[0, 1] and self.board[0, 0] == self.board[0, 2] and self.board[0, 0] != 0:
@@ -77,3 +73,10 @@ class Game:
             for j in range(3):
                 print(self.board[i, j], end=" ")
             print()
+
+    # function is called after game is finished!!!
+    # return 1d array: 
+    #   first index is game's result
+    #   other 9 indeces are the board's status
+    def get_game_result(self):
+        return np.append(self.game_status, self.board.reshape(9))
