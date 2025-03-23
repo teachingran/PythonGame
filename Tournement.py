@@ -1,8 +1,11 @@
-from Game import Game
+#from Game import Game
+from NaiveGameForTraining import NaiveGameForTraining
 from commons import GameStatus, General
 import numpy as np
 import os
 import statistics
+import pickle
+
 
 
 class Tournament:
@@ -10,18 +13,20 @@ class Tournament:
         pass
 
     def play(self):
+        print("start tournament")
         path = os.path.dirname(os.path.abspath(__file__))
         print(path)
         all_boards = {}
 #        all_games = np.zeros((0,10), dtype=int)
-        for i in range(100000):
-            game = Game()
+        for i in range(1000000):
+#            game = NaiveGameForTraining()
+            game = NaiveGameForTraining()
             game.play()
             self.add_game_borads(game, all_boards)        
 
         #self.print_debug1(all_boards)
         self.calc_board_avg(all_boards)
-        #self.print_debug2(all_boards)
+        self.print_debug2(all_boards)
         self.save_results(all_boards)
         print("✔️'")       
 
@@ -31,7 +36,6 @@ class Tournament:
             all_boards[key] =  statistics.mean(all_boards[key])
         
     def save_results(self, all_boards):
-        import pickle
         file_name = General.get_trained_file_name()
         with open(file_name, "wb") as file:
             pickle.dump(all_boards, file)
