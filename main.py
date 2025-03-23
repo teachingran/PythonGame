@@ -8,7 +8,7 @@ def play_game():
     game.play()
     aaa = game.get_game_result()
     print(aaa)
-    np.save()
+    np.save("res.txt")
 
 
 
